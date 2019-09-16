@@ -1,5 +1,6 @@
 package t18.gradhack.com.bankapp;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,7 @@ public class MenuActivity extends AppCompatActivity {
     private String[] menuItemsArray = {"Transaction", "Statement","Credit Card"};
     int listViewLength = menuItemsArray.length;
     ListView listView;
-    int position;
+    int selectedIndex;
     private boolean volume_up_pressed, volume_down_pressed;
 
     @Override
@@ -35,24 +36,32 @@ public class MenuActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.text_view_layout_for_menu_activity, R.id.textViewForList, menuItemsArray);
         listView = findViewById(R.id.menuListView);
         listView.setAdapter(adapter);
+//        listViewLength = listView.getChildCount();
 
-        position = 0;
-        listView.setSelection(position);
-        Toast.makeText(this, (CharSequence) listView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+        selectedIndex = 0;
+        listView.setSelection(selectedIndex);
+        Toast.makeText(this, (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
             volume_down_pressed = false;
-            position = (position + 1) % listViewLength;
-            Toast.makeText(this, (CharSequence) listView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
+            selectedIndex = (selectedIndex + 1) % listViewLength;
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.BLUE);
+
+            Toast.makeText(this, (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
             return true;
         } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
             volume_up_pressed = false;
-            position = (position - 1) % listViewLength;
-            if (position < 0) position += listViewLength;
-            Toast.makeText(this, (CharSequence) listView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            // TODO: decolor selected index item
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
+            // move selected cursor to next
+            selectedIndex = (selectedIndex - 1) % listViewLength;
+            if (selectedIndex < 0) selectedIndex += listViewLength;
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.BLUE);
+            Toast.makeText(this, (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
             return true;
         } else {
             ;
@@ -69,7 +78,7 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         if (volume_down_pressed && volume_up_pressed) {
-            Toast.makeText(this, "Select " + (CharSequence) listView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select " + (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
         }
         return true;
     }
