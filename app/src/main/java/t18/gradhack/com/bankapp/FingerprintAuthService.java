@@ -14,7 +14,6 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -37,7 +36,6 @@ public class FingerprintAuthService extends Service {
     private Cipher cipher;
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
-    private TextView textView;
     private FingerprintManager.CryptoObject cryptoObject;
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
@@ -84,7 +82,7 @@ public class FingerprintAuthService extends Service {
         //Check whether the user has granted your app the USE_FINGERPRINT permission//
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
             // If your app doesn't have this permission, then display the following text//
-//            textView.setText("Please enable the fingerprint permission");
+//            textView.setText("Please5 enable the fingerprint permission");
         }
 
         //Check that the user has registered at least one fingerprint//
