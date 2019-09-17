@@ -10,11 +10,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MenuActivity.class.getSimpleName();
+
     private String[] menuItemsArray = {"Transaction", "Statement","Credit Card"};
     int listViewLength = menuItemsArray.length;
     ListView listView;
     int selectedIndex;
+
     private boolean volume_up_pressed, volume_down_pressed;
 
     @Override
@@ -33,40 +35,42 @@ public class MenuActivity extends AppCompatActivity {
         // TextView textView = findViewById(R.id.textView);
         // textView.setText(username);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.text_view_layout_for_menu_activity, R.id.textViewForList, menuItemsArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItemsArray);
         listView = findViewById(R.id.menuListView);
         listView.setAdapter(adapter);
-//        listViewLength = listView.getChildCount();
 
-        selectedIndex = 0;
-        listView.setSelection(selectedIndex);
-        Toast.makeText(this, (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
+        selectedIndex = -1;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
             volume_down_pressed = false;
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
-            selectedIndex = (selectedIndex + 1) % listViewLength;
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.BLUE);
 
-            Toast.makeText(this, (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
+            if (selectedIndex != -1)
+                listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
+            selectedIndex = (selectedIndex + 1) % listViewLength;
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+
             return true;
         } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
             volume_up_pressed = false;
-            // TODO: decolor selected index item
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
-            // move selected cursor to next
+
+            if (selectedIndex != -1)
+                listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
             selectedIndex = (selectedIndex - 1) % listViewLength;
             if (selectedIndex < 0) selectedIndex += listViewLength;
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.BLUE);
-            Toast.makeText(this, (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+
             return true;
-        } else {
-            ;
         }
-        return super.dispatchKeyEvent(event);
+        return false;
     }
 
     @Override
@@ -78,8 +82,8 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         if (volume_down_pressed && volume_up_pressed) {
-            Toast.makeText(this, "Select " + (CharSequence) listView.getItemAtPosition(selectedIndex), Toast.LENGTH_SHORT).show();
+            // switch to selected activity here
         }
-        return true;
+        return false;
     }
 }

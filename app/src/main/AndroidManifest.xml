@@ -18,6 +18,10 @@
         </activity>
 
         <activity android:name=".MenuActivity" />
+        <service
+            android:name=".TextToSpeechService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <service
             android:name=".VolumeKeysEventListenerService"

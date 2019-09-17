@@ -53,7 +53,6 @@ public class FingerprintAuthService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         Log.d(TAG, "FingerprintAuthService.onStartCommand() init");
-        Toast.makeText(this, "FingerprintAuthService Started", Toast.LENGTH_LONG).show();
 
         //Get an instance of KeyguardManager and FingerprintManager//
         keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
