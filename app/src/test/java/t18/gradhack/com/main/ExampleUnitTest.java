@@ -1,4 +1,4 @@
-package t18.gradhack.com.bankapp;
+package t18.gradhack.com.main;
 
 import org.junit.Test;
 

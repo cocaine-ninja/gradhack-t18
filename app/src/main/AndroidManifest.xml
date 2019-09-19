@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="t18.gradhack.com.bankapp">
+    package="t18.gradhack.com.main">
 
     <application
         android:allowBackup="true"
@@ -9,26 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="t18.gradhack.com.bankservices.FundsTransferActivity"></activity>
+        <activity android:name="t18.gradhack.com.main.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MenuActivity" />
-        <service
-            android:name=".TextToSpeechService"
-            android:enabled="true"
-            android:exported="true"></service>
+        <activity android:name="t18.gradhack.com.main.MenuActivity" />
 
         <service
-            android:name=".VolumeKeysEventListenerService"
+            android:name="t18.gradhack.com.main.TextToSpeechService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".FingerprintAuthService"
+            android:name="t18.gradhack.com.main.FingerprintAuthService"
             android:enabled="true"
             android:exported="true" />
     </application>

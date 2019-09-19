@@ -1,4 +1,4 @@
-package t18.gradhack.com.bankapp;
+package t18.gradhack.com.main;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package t18.gradhack.com.bankapp;
+package t18.gradhack.com.main;
 
 import android.app.Service;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -40,19 +39,17 @@ public class FingerprintAuthService extends Service {
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG, "FingerprintAuthService.onBind() init");
+        Log.i("FingerprintAuthService", "onBind()");
         return null;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
-        Log.d(TAG, "FingerprintAuthService.onStartCommand() init");
+        Log.i("FingerprintAuthService", "onStartCommand()");
 
         //Get an instance of KeyguardManager and FingerprintManager//
         keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
@@ -64,10 +61,9 @@ public class FingerprintAuthService extends Service {
     }
 
     public void authenticate() {
-        Log.d(TAG, "FingerprintAuthService.authenticate() init");
+        Log.i("FingerprintAuthService", "authenticate()");
 
 //        textView = findViewById(R.id.fingerprintTextView);
-        Log.d(TAG, "FingerprintAuthService.authenticate() loaded textView");
 
         //Get an instance of KeyguardManager and FingerprintManager//
         keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);

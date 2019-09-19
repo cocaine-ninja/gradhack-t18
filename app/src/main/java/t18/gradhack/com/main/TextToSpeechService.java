@@ -1,4 +1,4 @@
-package t18.gradhack.com.bankapp;
+package t18.gradhack.com.main;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,14 +7,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.Locale;
 
 public class TextToSpeechService extends Service implements TextToSpeech.OnInitListener {
     IBinder mBinder = new LocalBinder();
     TextToSpeech tts;
-    private static final String TAG = TextToSpeechService.class.getSimpleName();
     final Handler handler = new Handler();
 
     boolean ttsIsReady = false;
@@ -41,7 +39,7 @@ public class TextToSpeechService extends Service implements TextToSpeech.OnInitL
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
-        Log.d(TAG, "TextToSpeechService.onStartCommand() init");
+        Log.i("TextToSpeechService", "onStartCommand()");
 
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override

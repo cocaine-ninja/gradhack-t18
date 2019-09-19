@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="t18.gradhack.com.main.MenuActivity">
+    tools:context="t18.gradhack.com.bankservices.FundsTransferActivity">
 
     <ListView
-        android:id="@+id/menuListView"
+        android:id="@+id/FundTransferMenuList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
