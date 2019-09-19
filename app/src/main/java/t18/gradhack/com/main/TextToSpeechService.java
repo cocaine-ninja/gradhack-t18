@@ -15,7 +15,7 @@ public class TextToSpeechService extends Service implements TextToSpeech.OnInitL
     TextToSpeech tts;
     final Handler handler = new Handler();
 
-    boolean ttsIsReady = false;
+    public boolean ttsIsReady = false;
 
     @Override
     public IBinder onBind(Intent intent) {

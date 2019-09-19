@@ -7,7 +7,7 @@
     tools:context="t18.gradhack.com.bankservices.FundsTransferActivity">
 
     <ListView
-        android:id="@+id/FundTransferMenuList"
+        android:id="@+id/FundsTransferMenuList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"

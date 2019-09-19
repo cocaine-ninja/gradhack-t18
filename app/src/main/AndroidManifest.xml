@@ -9,22 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="t18.gradhack.com.bankservices.FundsTransferActivity"></activity>
-        <activity android:name="t18.gradhack.com.main.LoginActivity">
+        <activity android:name="t18.gradhack.com.generics.GenericMenuActivity"></activity>
+        <activity android:name="t18.gradhack.com.bankservices.FundsTransferActivity" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="t18.gradhack.com.main.MenuActivity" />
+        <activity android:name=".MenuActivity" />
 
         <service
-            android:name="t18.gradhack.com.main.TextToSpeechService"
+            android:name=".TextToSpeechService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name="t18.gradhack.com.main.FingerprintAuthService"
+            android:name=".FingerprintAuthService"
             android:enabled="true"
             android:exported="true" />
     </application>
