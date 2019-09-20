@@ -19,7 +19,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import t18.gradhack.com.main.R;
+import t18.gradhack.com.res.FingerprintAuthService;
+import t18.gradhack.com.res.TextToSpeechService;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String EXTRA_USERNAME = "t18.gradhack.com.bankapp.USERNAME";
@@ -34,10 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("LoginActivity", "onCreate()");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // start fingerprint auth service
-        startService(new Intent(getBaseContext(), FingerprintAuthService.class));
+        setContentView(R.layout.main_login);
 
         // start tts service
         startService(new Intent(getBaseContext(), TextToSpeechService.class));
@@ -88,16 +86,22 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        // start fingerprint auth service
+        startService(new Intent(getBaseContext(), FingerprintAuthService.class));
     };
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onStop() { super.onStop(); };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         if(mBoundedTTS) {
             unbindService(mConnectionTTS);
             mBoundedTTS = false;
         }
-    };
+    }
 
     // bind tts service instance to mTTS
     ServiceConnection mConnectionTTS = new ServiceConnection() {

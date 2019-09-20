@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="t18.gradhack.com.generics.GenericMenuActivity"></activity>
+        <activity android:name="t18.gradhack.com.bankservices.TransferRequestsActivity">
+
+        </activity>
+        <activity android:name="t18.gradhack.com.generics.GenericMenuActivity" />
         <activity android:name="t18.gradhack.com.bankservices.FundsTransferActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -21,11 +24,11 @@
         <activity android:name=".MenuActivity" />
 
         <service
-            android:name=".TextToSpeechService"
+            android:name="t18.gradhack.com.res.TextToSpeechService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".FingerprintAuthService"
+            android:name="t18.gradhack.com.res.FingerprintAuthService"
             android:enabled="true"
             android:exported="true" />
     </application>
@@ -35,5 +38,6 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 </manifest>

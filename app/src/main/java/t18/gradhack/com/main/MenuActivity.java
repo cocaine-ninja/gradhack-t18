@@ -8,12 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import t18.gradhack.com.generics.GenericMenuActivity;
+import t18.gradhack.com.res.TextToSpeechService;
 
 public class MenuActivity extends GenericMenuActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.main_menu);
         Log.i("MenuActivity", "onCreate() method");
 
         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);

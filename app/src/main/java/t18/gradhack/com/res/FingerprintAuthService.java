@@ -1,4 +1,4 @@
-package t18.gradhack.com.main;
+package t18.gradhack.com.res;
 
 import android.app.Service;
 import android.content.Intent;
@@ -42,14 +42,14 @@ public class FingerprintAuthService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.i("FingerprintAuthService", "onBind()");
+        // Log.i("FingerprintAuthService", "onBind()");
         return null;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
-        Log.i("FingerprintAuthService", "onStartCommand()");
+        // Log.i("FingerprintAuthService", "onStartCommand()");
 
         //Get an instance of KeyguardManager and FingerprintManager//
         keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);

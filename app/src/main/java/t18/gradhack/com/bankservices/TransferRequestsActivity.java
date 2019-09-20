@@ -1,4 +1,4 @@
-package t18.gradhack.com.generics;
+package t18.gradhack.com.bankservices;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -10,46 +10,65 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import t18.gradhack.com.generics.FundsRequest;
+import t18.gradhack.com.main.R;
+import t18.gradhack.com.res.FundsRequestsAdapter;
 import t18.gradhack.com.res.TextToSpeechService;
 
-public class GenericMenuActivity extends AppCompatActivity {
+public class TransferRequestsActivity extends AppCompatActivity {
     final Handler handler = new Handler();
 
-    protected String packageName;
-
-    public String[] menuItemsArray;
-    public int listViewLength;
-
-    public ListView listView;
-    public int selectedIndex;
+    List<FundsRequest> requests;
+    private ListView listView;
+    private int listViewLength;
+    private int selectedIndex;
 
     // TTS Engine
     public boolean mBoundedTTS = false;
     public TextToSpeechService mTTS;
     public boolean isInIt = false;
 
-    public static final int REQ_CODE_SPEECH_INPUT = 100;
-
     public boolean volume_up_pressed, volume_down_pressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.bankservices_transfer_requests);
 
         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);
         bindService(mIntentTTS, mConnectionTTS, BIND_AUTO_CREATE);
 
-        // delay key up event listeners
+        populateListView(R.id.requestsView);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 isInIt = true;
             }
         }, 1000);
+    }
+
+    private void populateListView(int id) {
+        FundsRequest req1 = new FundsRequest(1, "Sujay", 11001678321L, 100, 8010761583L, "Lunch");
+        FundsRequest req2 = new FundsRequest(2, "Aman", 33892011180L, 5000, 9654741594L, "Drinks");
+
+        requests = new ArrayList<>();
+        requests.add(req1);
+        requests.add(req2);
+
+        listView = findViewById(id);
+
+        // get data from the table by the ListAdapter
+        FundsRequestsAdapter customAdapter = new FundsRequestsAdapter(this, R.layout.custom_view_for_transfer_requests, requests);
+        listView.setAdapter(customAdapter);
+
+        listViewLength = requests.size();
+        selectedIndex = -1000;
     }
 
     @Override
@@ -60,7 +79,7 @@ public class GenericMenuActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("GenericMenuActivity", "onPause() method");
+        Log.i("TransferRequestsActivity", "onPause() method");
     };
 
     @Override
@@ -89,23 +108,10 @@ public class GenericMenuActivity extends AppCompatActivity {
             mBoundedTTS = true;
             TextToSpeechService.LocalBinder mLocalBinder = (TextToSpeechService.LocalBinder)service;
             mTTS = mLocalBinder.getService();
-            mTTS.speakText("Main Menu Screen");
+            Toast.makeText(getApplicationContext(), "TTS Bind successful", Toast.LENGTH_SHORT).show();
+//            mTTS.speakText("Transfer Requests Screen");
         }
     };
-
-    public void populateListView(int id) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItemsArray);
-        listView = findViewById(id);
-        listView.setAdapter(adapter);
-
-        listViewLength = menuItemsArray.length;
-
-        selectedIndex = -1000;
-    }
-
-    public void setPackageName(String name) {
-        this.packageName = name;
-    }
 
     // Volumes Keys Event Listeners
     @Override
@@ -116,13 +122,13 @@ public class GenericMenuActivity extends AppCompatActivity {
                     volume_down_pressed = false;
 
                     navigateDown();
-                    mTTS.speakText(listView.getItemAtPosition(selectedIndex).toString());
+                    readRequest();
                     return true;
                 } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
                     volume_up_pressed = false;
 
                     navigateUp();
-                    mTTS.speakText(listView.getItemAtPosition(selectedIndex).toString());
+                    readRequest();
                     return true;
                 }
             }
@@ -168,6 +174,8 @@ public class GenericMenuActivity extends AppCompatActivity {
     }
 
     private void selectItem() {
+        Toast.makeText(this, "Selected " + ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPersonName(), Toast.LENGTH_SHORT).show();
+        /*
         String item = listView.getItemAtPosition(selectedIndex).toString();
         String className = packageName + "." + item.replace(" ", "") + "Activity";
 
@@ -179,5 +187,14 @@ public class GenericMenuActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, item + " feature coming soon", Toast.LENGTH_SHORT).show();
         }
+        
+         */
+    }
+
+    private void readRequest() {
+        String text = "Request from " + ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPersonName() + " ";
+        text += "to pay rupees " + Integer.toString( ( (FundsRequest) listView.getItemAtPosition(selectedIndex)).getAmount() ) + " ";
+        text += "for " + ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPurpose();
+        mTTS.speakText(text);
     }
 }

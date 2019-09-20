@@ -1,4 +1,4 @@
-package t18.gradhack.com.main;
+package t18.gradhack.com.res;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
+
+import t18.gradhack.com.main.MenuActivity;
 
 @TargetApi(Build.VERSION_CODES.N)
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
@@ -43,7 +45,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         Toast.makeText(context, "Authentication error\n" + errString, Toast.LENGTH_LONG).show();
     }
 
-    //onAuthenticationFailed is called when the fingerprint doesn’t match with any of the fingerprints registered on the device//
+    //onAuthenticationFailed is called when the fingerprint doesn't match with any of the fingerprints registered on the device//
     @Override
     public void onAuthenticationFailed() {
         Toast.makeText(context, "Authentication failed", Toast.LENGTH_LONG).show();
@@ -59,7 +61,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     //onAuthenticationSucceeded is called when a fingerprint has been successfully matched to one of the fingerprints stored on the user’s device//
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
-        Toast.makeText(context, "Authentication Success!", Toast.LENGTH_LONG).show();
+        // Toast.makeText(context, "Authentication Success!", Toast.LENGTH_LONG).show();
 
         // switch to MenuActivity
         Intent intent = new Intent(context, MenuActivity.class);

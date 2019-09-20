@@ -1,4 +1,4 @@
-package t18.gradhack.com.main;
+package t18.gradhack.com.res;
 
 import android.app.Service;
 import android.content.Intent;
@@ -15,7 +15,7 @@ public class TextToSpeechService extends Service implements TextToSpeech.OnInitL
     TextToSpeech tts;
     final Handler handler = new Handler();
 
-    public boolean ttsIsReady = false;
+    public boolean ttsCreationSuccessful = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -25,9 +25,9 @@ public class TextToSpeechService extends Service implements TextToSpeech.OnInitL
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS)
-            ttsIsReady = true;
+            ttsCreationSuccessful = true;
         else
-            ttsIsReady = false;
+            ttsCreationSuccessful = false;
     }
 
     public class LocalBinder extends Binder {
@@ -53,7 +53,7 @@ public class TextToSpeechService extends Service implements TextToSpeech.OnInitL
     }
 
     public void speakText(final String text) {
-        if (ttsIsReady) {
+        if (ttsCreationSuccessful) {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         } else {
             handler.postDelayed(new Runnable() {
