@@ -13,11 +13,11 @@ import android.view.KeyEvent;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import t18.gradhack.com.generics.FundsRequest;
 import t18.gradhack.com.main.R;
+import t18.gradhack.com.res.DummyData;
 import t18.gradhack.com.res.FundsRequestsAdapter;
 import t18.gradhack.com.res.TextToSpeechService;
 
@@ -35,6 +35,8 @@ public class TransferRequestsActivity extends AppCompatActivity {
     public boolean isInIt = false;
 
     public boolean volume_up_pressed, volume_down_pressed;
+
+    DummyData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +56,9 @@ public class TransferRequestsActivity extends AppCompatActivity {
     }
 
     private void populateListView(int id) {
-        FundsRequest req1 = new FundsRequest(1, "Sujay", 11001678321L, 100, 8010761583L, "Lunch");
-        FundsRequest req2 = new FundsRequest(2, "Aman", 33892011180L, 5000, 9654741594L, "Drinks");
-
-        requests = new ArrayList<>();
-        requests.add(req1);
-        requests.add(req2);
+        data = new DummyData();
+        data.initFundsRequests();
+        requests = data.getFundsRequests();
 
         listView = findViewById(id);
 
