@@ -1,0 +1,5 @@
+CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+    getApplicationContext(),
+    "us-east-1:94319f4e-b9f8-48af-a52c-48ee4ca1348a", // Identity pool ID
+    Regions.US_EAST_1 // Region
+);
