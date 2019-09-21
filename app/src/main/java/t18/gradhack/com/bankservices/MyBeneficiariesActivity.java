@@ -1,4 +1,4 @@
-package t18.gradhack.com.generics;
+package t18.gradhack.com.bankservices;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -10,46 +10,64 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import t18.gradhack.com.generics.Beneficiary;
+import t18.gradhack.com.main.R;
+import t18.gradhack.com.res.DummyData;
+import t18.gradhack.com.res.MyBeneficiariesAdapter;
 import t18.gradhack.com.res.TextToSpeechService;
 
-public class GenericMenuActivity extends AppCompatActivity {
+public class MyBeneficiariesActivity extends AppCompatActivity {
     final Handler handler = new Handler();
 
-    protected String packageName;
-
-    public String[] menuItemsArray;
-    public int listViewLength;
-
-    public ListView listView;
-    public int selectedIndex;
+    List<Beneficiary> requests;
+    private ListView listView;
+    private int listViewLength;
+    private int selectedIndex;
 
     // TTS Engine
     public boolean mBoundedTTS = false;
     public TextToSpeechService mTTS;
     public boolean isInIt = false;
 
-    public static final int REQ_CODE_SPEECH_INPUT = 100;
-
     public boolean volume_up_pressed, volume_down_pressed;
+
+    DummyData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.bankservices_my_beneficiaries);
 
         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);
         bindService(mIntentTTS, mConnectionTTS, BIND_AUTO_CREATE);
 
-        // delay key up event listeners
+        populateListView(R.id.myBeneficiariesListView);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 isInIt = true;
             }
         }, 1000);
+    }
+
+    private void populateListView(int id) {
+        data = new DummyData();
+        data.initMyBeneficiaries();
+        requests = data.getMyBeneficiaries();
+
+        listView = findViewById(id);
+
+        // get data from the table by the ListAdapter
+        MyBeneficiariesAdapter customAdapter = new MyBeneficiariesAdapter(this, R.layout.custom_view_for_my_beneficiaries, requests);
+        listView.setAdapter(customAdapter);
+
+        listViewLength = requests.size();
+        selectedIndex = -1000;
     }
 
     @Override
@@ -60,7 +78,7 @@ public class GenericMenuActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("GenericMenuActivity", "onPause() method");
+        Log.i("TransferRequestsActivity", "onPause() method");
     };
 
     @Override
@@ -89,23 +107,10 @@ public class GenericMenuActivity extends AppCompatActivity {
             mBoundedTTS = true;
             TextToSpeechService.LocalBinder mLocalBinder = (TextToSpeechService.LocalBinder)service;
             mTTS = mLocalBinder.getService();
-            mTTS.speakText("Main Menu Screen");
+//            Toast.makeText(getApplicationContext(), "TTS Bind successful", Toast.LENGTH_SHORT).show();
+//            mTTS.speakText("Transfer Requests Screen");
         }
     };
-
-    public void populateListView(int id) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItemsArray);
-        listView = findViewById(id);
-        listView.setAdapter(adapter);
-
-        listViewLength = menuItemsArray.length;
-
-        selectedIndex = -1000;
-    }
-
-    public void setPackageName(String name) {
-        this.packageName = name;
-    }
 
     // Volumes Keys Event Listeners
     @Override
@@ -116,13 +121,13 @@ public class GenericMenuActivity extends AppCompatActivity {
                     volume_down_pressed = false;
 
                     navigateDown();
-                    mTTS.speakText(listView.getItemAtPosition(selectedIndex).toString());
+                    readBeneficiary();
                     return true;
                 } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
                     volume_up_pressed = false;
 
                     navigateUp();
-                    mTTS.speakText(listView.getItemAtPosition(selectedIndex).toString());
+                    readBeneficiary();
                     return true;
                 }
             }
@@ -168,17 +173,21 @@ public class GenericMenuActivity extends AppCompatActivity {
     }
 
     private void selectItem() {
-        String item = listView.getItemAtPosition(selectedIndex).toString();
-        String className = packageName + "." + item.replace(" ", "") + "Activity";
+         Toast.makeText(this, "Selected " + ((Beneficiary) listView.getItemAtPosition(selectedIndex)).getName(), Toast.LENGTH_SHORT).show();
 
-        // convert class name string to class
-        try {
-            Intent intent = new Intent(this, Class.forName(className));
-            startActivity(intent);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-//            Toast.makeText(this, item + " feature coming soon", Toast.LENGTH_SHORT).show();
-            mTTS.speakText(item + " feature coming soon");
-        }
+        /*
+        Intent intent = new Intent(this, RequestProcessActivity.class);
+        intent.putExtra("BENEFICIARY_NAME", ((Beneficiary) listView.getItemAtPosition(selectedIndex)).getName());
+        intent.putExtra("BENEFICIARY_ACCOUNT_NUMBER", ((Beneficiary) listView.getItemAtPosition(selectedIndex)).getAccountNumber());
+        intent.putExtra("BENEFICIARY_BANK_NAME", ((Beneficiary) listView.getItemAtPosition(selectedIndex)).getBankName());
+        startActivity(intent);
+         */
+    }
+
+    // tts service to speak out the beneficiary details
+    private void readBeneficiary() {
+        String text = ((Beneficiary) listView.getItemAtPosition(selectedIndex)).getName() + "'s";
+        text += " account in " + ((Beneficiary) listView.getItemAtPosition(selectedIndex)).getBankName();
+        mTTS.speakText(text);
     }
 }

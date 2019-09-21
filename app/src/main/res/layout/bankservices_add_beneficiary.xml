@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="t18.gradhack.com.bankservices.AddBeneficiaryActivity">
+
+    <TextView
+        android:id="@+id/beneficiaryPhoneNumber"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="205dp"
+        android:layout_marginBottom="67dp"
+        android:gravity="center"
+        android:hint="Enter Phone Number"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConfirmBeneficiary"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <Button
+        android:id="@+id/buttonConfirmBeneficiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="161dp"
+        android:layout_marginBottom="392dp"
+        android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beneficiaryPhoneNumber" />
+</android.support.constraint.ConstraintLayout>

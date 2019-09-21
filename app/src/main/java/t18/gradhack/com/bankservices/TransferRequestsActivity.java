@@ -173,7 +173,13 @@ public class TransferRequestsActivity extends AppCompatActivity {
     }
 
     private void selectItem() {
-        Toast.makeText(this, "Selected " + ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPersonName(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Selected " + ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPersonName(), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, RequestProcessActivity.class);
+        intent.putExtra("PERSON_NAME", ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPersonName());
+        intent.putExtra("AMOUNT", ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getAmount());
+        intent.putExtra("PURPOSE", ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPurpose());
+        startActivity(intent);
         /*
         String item = listView.getItemAtPosition(selectedIndex).toString();
         String className = packageName + "." + item.replace(" ", "") + "Activity";
@@ -190,6 +196,7 @@ public class TransferRequestsActivity extends AppCompatActivity {
          */
     }
 
+    // tts service to speak out the request
     private void readRequest() {
         String text = "Request from " + ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPersonName() + " ";
         text += "to pay rupees " + Integer.toString( ( (FundsRequest) listView.getItemAtPosition(selectedIndex)).getAmount() ) + " ";

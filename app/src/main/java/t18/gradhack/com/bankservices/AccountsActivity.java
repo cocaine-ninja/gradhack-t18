@@ -1,4 +1,4 @@
-package t18.gradhack.com.main;
+package t18.gradhack.com.bankservices;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -8,27 +8,28 @@ import android.os.Bundle;
 import android.util.Log;
 
 import t18.gradhack.com.generics.GenericMenuActivity;
+import t18.gradhack.com.main.R;
 import t18.gradhack.com.res.TextToSpeechService;
 
-public class MenuActivity extends GenericMenuActivity {
+public class AccountsActivity extends GenericMenuActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_menu);
-        Log.i("MenuActivity", "onCreate() method");
+        setContentView(R.layout.bankservices_accounts);
 
         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);
         bindService(mIntentTTS, mConnectionTTS, BIND_AUTO_CREATE);
 
-        menuItemsArray = new String[] {"Accounts", "Funds Transfer", "Credit Card", "Fixed Deposits"};
-        populateListView(R.id.menuListView);
+        menuItemsArray = new String[] {"Add Account", "Accounts List"};
+        populateListView(R.id.accountsListView);
         setPackageName("t18.gradhack.com.bankservices");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("MenuActivity", "onPause() method");
+        Log.i("AccountsActivity", "onPause() method");
     };
 
     ServiceConnection mConnectionTTS = new ServiceConnection() {
@@ -43,7 +44,7 @@ public class MenuActivity extends GenericMenuActivity {
             mBoundedTTS = true;
             TextToSpeechService.LocalBinder mLocalBinder = (TextToSpeechService.LocalBinder)service;
             mTTS = mLocalBinder.getService();
-            mTTS.speakText("Main Menu Screen");
+            mTTS.speakText("Accounts Screen");
         }
     };
 }

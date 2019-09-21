@@ -22,7 +22,7 @@ public class FundsTransferActivity extends GenericMenuActivity {
         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);
         bindService(mIntentTTS, mConnectionTTS, BIND_AUTO_CREATE);
 
-        menuItemsArray = new String[] {"Transfer Requests", "Beneficiaries", "Scheduled Transfers", "Add Beneficiary"};
+        menuItemsArray = new String[] {"Transfer Requests", "My Beneficiaries", "Scheduled Transfers", "Add Beneficiary"};
         populateListView(R.id.FundsTransferMenuList);
         setPackageName("t18.gradhack.com.bankservices");
 

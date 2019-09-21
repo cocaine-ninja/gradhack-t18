@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="t18.gradhack.com.bankservices.TransferRequestsActivity">
-
-        </activity>
+        <activity android:name="t18.gradhack.com.bankservices.AccountsActivity"></activity>
+        <activity android:name="t18.gradhack.com.bankservices.MyBeneficiariesActivity" />
+        <activity android:name="t18.gradhack.com.bankservices.AddBeneficiaryActivity" />
+        <activity android:name="t18.gradhack.com.bankservices.RequestProcessActivity" />
+        <activity android:name="t18.gradhack.com.bankservices.TransferRequestsActivity" />
         <activity android:name="t18.gradhack.com.generics.GenericMenuActivity" />
         <activity android:name="t18.gradhack.com.bankservices.FundsTransferActivity" />
         <activity android:name=".LoginActivity">
@@ -36,8 +38,8 @@
     <uses-feature
         android:name="android.hardware.fingerprint"
         android:required="false" />
-
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>
