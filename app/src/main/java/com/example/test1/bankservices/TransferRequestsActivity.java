@@ -164,7 +164,7 @@ public class TransferRequestsActivity extends AppCompatActivity {
             selectedIndex = (selectedIndex - 1) % listViewLength;
         }
         if (selectedIndex < 0) selectedIndex += listViewLength;
-        listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+        listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     private void navigateDown() {
@@ -174,7 +174,7 @@ public class TransferRequestsActivity extends AppCompatActivity {
             listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
             selectedIndex = (selectedIndex + 1) % listViewLength;
         }
-        listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+        listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     private void selectItem() {

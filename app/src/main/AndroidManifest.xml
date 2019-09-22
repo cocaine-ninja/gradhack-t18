@@ -15,11 +15,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".bankservices.TransactionSuccessfulActivity"></activity>
+        <activity android:name=".bankservices.BeneficiarySuccessfulActivity"></activity>
+        <activity android:name=".bankservices.TransactionSuccessfulActivity" />
         <activity android:name=".bankservices.AccountsActivity" />
         <activity android:name=".bankservices.MyBeneficiariesActivity" />
         <activity android:name=".bankservices.AddBeneficiaryActivity" />
@@ -31,14 +31,12 @@
             android:name=".ChatBotActivity"
             android:label="Voice Assistant" />
         <activity android:name=".CreatePin" />
-
         <activity android:name=".SignUp" />
         <activity android:name=".AddAccount" />
         <activity
             android:name=".Home"
-            android:label="Home Menu"></activity>
-        <activity android:name=".FirstMenu"></activity>
-
+            android:label="Home Menu" />
+        <activity android:name=".FirstMenu" />
         <activity android:name=".SliderActivity" />
         <activity
             android:name=".FirstSplashActivity"

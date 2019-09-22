@@ -49,12 +49,12 @@ public class AddBeneficiaryActivity extends AppCompatActivity {
         super.onStart();
 
         buttonConfirm = findViewById(R.id.buttonConfirmBeneficiary);
-        buttonConfirm.setBackgroundColor(Color.parseColor("#c7000f"));
+        buttonConfirm.setBackgroundColor(Color.parseColor("#ffffff"));
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Adding new Beneficiary", Toast.LENGTH_SHORT).show();
-//                startVoiceInput();
+                Intent intent = new Intent(getApplicationContext(), BeneficiarySuccessfulActivity.class);
+                startActivity(intent);
             }
         });
     }

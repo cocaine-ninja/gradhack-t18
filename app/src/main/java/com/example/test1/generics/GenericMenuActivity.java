@@ -154,21 +154,21 @@ public class GenericMenuActivity extends AppCompatActivity {
         if (selectedIndex == -1000) {
             selectedIndex = 0;
         } else {
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#c7000f"));
             selectedIndex = (selectedIndex - 1) % listViewLength;
         }
         if (selectedIndex < 0) selectedIndex += listViewLength;
-        listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+        listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     private void navigateDown() {
         if (selectedIndex == -1000) {
             selectedIndex = 0;
         } else {
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#c7000f"));
             selectedIndex = (selectedIndex + 1) % listViewLength;
         }
-        listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+        listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     protected void selectItem() {
