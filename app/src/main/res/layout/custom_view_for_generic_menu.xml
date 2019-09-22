@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.test1.bankservices.FundsTransferActivity">
+    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/FundsTransferMenuList"
-        android:layout_width="404dp"
-        android:layout_height="736dp"
-        android:layout_marginEnd="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/genericMenuItemTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#C7000F"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:text="Sample Text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.example.test1
 
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,6 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import androidx.biometric.BiometricPrompt
 import com.amazonaws.auth.AWSCredentialsProvider
 import com.amazonaws.mobile.auth.core.IdentityHandler
 import com.amazonaws.mobile.auth.core.IdentityManager
@@ -32,15 +30,15 @@ import com.amazonaws.mobileconnectors.lex.interactionkit.ui.InteractiveVoiceView
 import com.amazonaws.services.polly.AmazonPollyPresigningClient
 import com.amazonaws.services.polly.model.OutputFormat
 import com.amazonaws.services.polly.model.SynthesizeSpeechPresignRequest
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_add_account.*
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlin.concurrent.thread
 
 
 class FirstMenu : AppCompatActivity() {
 
     private var credentialsProvider: AWSCredentialsProvider? = null
     private var awsConfiguration: AWSConfiguration? = null
-    private var biometricPrompt: BiometricPrompt? = null
-    private var fingerprintHandler = FingerprintHandler(this)
     val buttons = arrayOf(R.id.login_button_first_menu,R.id.signup_button)
     var index: Int = 0;
     var buttonSelected = ""
@@ -63,14 +61,9 @@ class FirstMenu : AppCompatActivity() {
 //                findViewById<Button>(buttons[(index+1)%2]).setBackgroundColor(0)
 //                buttonSelected = findViewById<Button>(buttons[index]).text.toString()
 //                buttonSelected = buttons[index].toString()
-////                findViewById<Button>(buttons[index]).performClick()
-//                Log.d("ChessApp",buttonSelected )
-//                return true
-                fingerprintHandler.setNextActivity(Home())
-                biometricPrompt = BiometricPrompt( this, fingerprintHandler.executor,  fingerprintHandler.callback )
-                var res = biometricPrompt!!.authenticate(fingerprintHandler.promptInfo)
+                findViewById<Button>(buttons[index]).performClick()
+                Log.d("ChessApp",buttonSelected )
                 return true
-
             }
         }
         return super.onKeyDown(keyCode, event)
@@ -100,13 +93,13 @@ class FirstMenu : AppCompatActivity() {
 
             IdentityManager.getDefaultIdentityManager().getUserID(object : IdentityHandler {
                 override fun onIdentityId(identityId: String?) {
-                    Log.d("TAG", "Identity = $identityId")
+                    Log.d(Login.TAG, "Identity = $identityId")
                     val cachedIdentityId = IdentityManager.getDefaultIdentityManager().cachedUserID
                     // Do something with the identity here
                 }
 
                 override fun handleError(exception: Exception?) {
-                    Log.e("TAG", "Retrieving identity")
+                    Log.e(Login.TAG, "Retrieving identity")
                 }
 
             })
@@ -124,7 +117,7 @@ class FirstMenu : AppCompatActivity() {
 
 
                 override fun onResponse(response: Response) {
-                    Log.d("TAG", "Bot response: ${response.textResponse}")
+                    Log.d(Login.TAG, "Bot response: ${response.textResponse}")
                     lexResponse = response.textResponse
                     if(lexResponse.equals("Login")){
                         findViewById<Button>(buttons[0]).performClick()
@@ -135,7 +128,7 @@ class FirstMenu : AppCompatActivity() {
                 }
 
                 override fun onError(responseText: String, e: Exception) {
-                    Log.e("TAG", "Error: ${e.message}")
+                    Log.e(Login.TAG, "Error: ${e.message}")
                 }
             })
         with (voiceInterface1.viewAdapter) {
@@ -182,7 +175,7 @@ class FirstMenu : AppCompatActivity() {
                 "us-east-1:94319f4e-b9f8-48af-a52c-48ee4ca1348a", // Identity pool ID
                 Regions.US_EAST_1 // Region
             )
-            val client = AmazonPollyPresigningClient(credentialsProvider as AWSCredentialsProvider?)
+            val client = AmazonPollyPresigningClient(credentialsProvider)
 
 
             var synthesizeSpeechPresignRequest = SynthesizeSpeechPresignRequest()
@@ -218,52 +211,19 @@ class FirstMenu : AppCompatActivity() {
             mediaPlayer.setOnCompletionListener { mp -> mp.release() }
 
 
-        }, 2000)
+        }, 4000)
 
 
 
         login_button_first_menu.setOnClickListener {
-
-            val sharedPref = this?.getSharedPreferences("CREDENTIAL_STORAGE", Context.MODE_PRIVATE)
-            var Username = username.text.toString()
-            var Password = password.text.toString()
-            var storedUsername = sharedPref.getString("USERNAME","")
-            var storedPassword = sharedPref.getString("PASSWORD","")
-            if(storedUsername!!.isEmpty()){
-                Toast.makeText(this,"User not registered",Toast.LENGTH_SHORT).show()
-            }else{
-                if(Password.equals(storedPassword)){
-                    var myIntent = Intent(this, Home::class.java)
-                    myIntent.putExtra("username", Username)
-                    startActivity(myIntent)
-                }
-                else{
-                    Toast.makeText(applicationContext,"Wrong Credentials",Toast.LENGTH_SHORT).show();
-                }
-
-                username.setText("")
-                password.setText("")
-            }
-            username.setText("")
-            password.setText("")
+             var myIntent = Intent(this, Login::class.java)
+             startActivity(myIntent)
 
         }
 
-
-
         signup_button.setOnClickListener {
-            val username = editText_signup_username.text.toString()
-            val password = editText_signup_password.text.toString()
-            val sharedPref = this?.getSharedPreferences("CREDENTIAL_STORAGE", Context.MODE_PRIVATE)
-            with (sharedPref.edit()) {
-                putString("USERNAME",username)
-                putString("PASSWORD", password)
-                commit()
-            }
-            val highScore = sharedPref.getString("PIN","")
-            Toast.makeText(this,highScore,Toast.LENGTH_SHORT)
-            finish()
-
+            var myIntent = Intent(this, SignUp::class.java)
+            startActivity(myIntent)
         }
     }
 

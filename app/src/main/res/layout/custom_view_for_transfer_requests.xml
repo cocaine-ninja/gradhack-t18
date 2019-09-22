@@ -1,47 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#c7000f"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/requestPerson"
+        android:id="@+id/constPayeeTextView"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/requestAmount"
+        android:layout_height="25dp"
+        android:gravity="top|left"
+        android:paddingLeft="10dp"
+        android:text="Payee"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/requestPerson"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/requestAmount"
+        android:id="@+id/requestPerson"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="7dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/requestPurpose"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="Payee Name Here"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/constAmountTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constPayeeTextView" />
+
+    <TextView
+        android:id="@+id/constAmountTextView"
+        android:layout_width="409dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:gravity="top|left"
+        android:paddingLeft="10dp"
+        android:text="Amount"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/requestAmount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/requestPerson" />
 
     <TextView
-        android:id="@+id/requestPurpose"
+        android:id="@+id/requestAmount"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="340dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/constPurposeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constAmountTextView" />
+
+    <TextView
+        android:id="@+id/constPurposeTextView"
+        android:layout_width="409dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:gravity="bottom|left"
+        android:paddingLeft="10dp"
+        android:text="Purpose"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/requestPurpose"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/requestAmount" />
+
+    <TextView
+        android:id="@+id/requestPurpose"
+        android:layout_width="409dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constPurposeTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
