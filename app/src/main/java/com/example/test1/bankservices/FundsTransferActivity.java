@@ -25,7 +25,7 @@ public class FundsTransferActivity extends GenericMenuActivity {
 
         menuItemsArray = new String[] {"Transfer Requests", "My Beneficiaries", "Scheduled Transfers", "Add Beneficiary"};
         populateListView(R.id.FundsTransferMenuList);
-        setPackageName("t18.gradhack.com.bankservices");
+        setPackageName("com.example.test1.bankservices");
 
         // delay key up event listeners
         handler.postDelayed(new Runnable() {

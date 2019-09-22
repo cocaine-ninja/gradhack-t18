@@ -22,7 +22,7 @@ public class AccountsActivity extends GenericMenuActivity {
         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);
         bindService(mIntentTTS, mConnectionTTS, BIND_AUTO_CREATE);
 
-        menuItemsArray = new String[] {"Add Account", "Accounts List"};
+        menuItemsArray = new String[] {"Add Accounts", "Accounts List"};
         populateListView(R.id.accountsListView);
         setPackageName("com.example.test1.bankservices");
     }

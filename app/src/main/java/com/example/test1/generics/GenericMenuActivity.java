@@ -90,7 +90,7 @@ public class GenericMenuActivity extends AppCompatActivity {
             mBoundedTTS = true;
             TextToSpeechService.LocalBinder mLocalBinder = (TextToSpeechService.LocalBinder)service;
             mTTS = mLocalBinder.getService();
-            mTTS.speakText("Main Menu Screen");
+//            mTTS.speakText("Main Menu Screen");
         }
     };
 

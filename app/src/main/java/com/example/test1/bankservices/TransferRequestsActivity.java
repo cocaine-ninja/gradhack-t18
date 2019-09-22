@@ -154,6 +154,7 @@ public class TransferRequestsActivity extends AppCompatActivity {
         }
         return true;
     }
+
     // navigation functions
     private void navigateUp() {
         if (selectedIndex == -1000) {
@@ -184,20 +185,6 @@ public class TransferRequestsActivity extends AppCompatActivity {
         intent.putExtra("AMOUNT", ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getAmount());
         intent.putExtra("PURPOSE", ((FundsRequest) listView.getItemAtPosition(selectedIndex)).getPurpose());
         startActivity(intent);
-        /*
-        String item = listView.getItemAtPosition(selectedIndex).toString();
-        String className = packageName + "." + item.replace(" ", "") + "Activity";
-
-        // convert class name string to class
-        try {
-            Intent intent = new Intent(this, Class.forName(className));
-            startActivity(intent);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, item + " feature coming soon", Toast.LENGTH_SHORT).show();
-        }
-        
-         */
     }
 
     // tts service to speak out the request
