@@ -17,11 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test1.R;
 
-import com.example.test1.generics.FundsRequest;
 import com.example.test1.res.TextToSpeechService;
 
 
 public class RequestProcessActivity extends AppCompatActivity {
+    final Handler handler = new Handler();
+
     Intent intent;
     Bundle extras;
 
@@ -40,6 +41,14 @@ public class RequestProcessActivity extends AppCompatActivity {
 
         intent = getIntent();
         extras = intent.getExtras();
+
+        // delay key up event listeners
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isInIt = true;
+            }
+        }, 1000);
     }
 
     @Override
@@ -127,20 +136,18 @@ public class RequestProcessActivity extends AppCompatActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(isInIt) {
-            if ((event.getFlags() & KeyEvent.FLAG_CANCELED_LONG_PRESS) == 0) {
-                if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                    if (selectedIndex == -1000) {
-                        selectedIndex = 0;
-                    } else {
-                        buttonArray[selectedIndex].setBackgroundColor(Color.parseColor("#ffffff"));
-                        selectedIndex = (selectedIndex + 1) % 2;
-                    }
-                    buttonArray[selectedIndex].setBackgroundColor(Color.parseColor("#c7000f"));
-                    return true;
-                } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
-                    buttonArray[selectedIndex].callOnClick();
-                    return true;
+            if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                if (selectedIndex == -1000) {
+                    selectedIndex = 0;
+                } else {
+                    buttonArray[selectedIndex].setBackgroundColor(Color.parseColor("#ffffff"));
+                    selectedIndex = (selectedIndex + 1) % 2;
                 }
+                buttonArray[selectedIndex].setBackgroundColor(Color.parseColor("#c7000f"));
+                return true;
+            } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
+                buttonArray[selectedIndex].callOnClick();
+                return true;
             }
         }
         return super.onKeyUp(keyCode, event);

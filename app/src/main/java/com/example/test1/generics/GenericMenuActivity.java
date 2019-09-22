@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.test1.R;
 import com.example.test1.res.TextToSpeechService;
 
 
@@ -96,7 +97,7 @@ public class GenericMenuActivity extends AppCompatActivity {
     };
 
     public void populateListView(int id) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItemsArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.custom_view_for_generic_menu, R.id.genericMenuItemTextView, menuItemsArray);
         listView = findViewById(id);
         listView.setAdapter(adapter);
 
