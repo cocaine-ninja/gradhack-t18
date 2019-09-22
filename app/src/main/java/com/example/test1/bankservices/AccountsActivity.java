@@ -11,7 +11,6 @@ import com.example.test1.R;
 import com.example.test1.generics.GenericMenuActivity;
 import com.example.test1.res.TextToSpeechService;
 
-
 public class AccountsActivity extends GenericMenuActivity {
 
     @Override
@@ -22,7 +21,7 @@ public class AccountsActivity extends GenericMenuActivity {
         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);
         bindService(mIntentTTS, mConnectionTTS, BIND_AUTO_CREATE);
 
-        menuItemsArray = new String[] {"Add Accounts", "Accounts List"};
+        menuItemsArray = new String[] {"Add Account", "Accounts List"};
         populateListView(R.id.accountsListView);
         setPackageName("com.example.test1.bankservices");
     }
@@ -33,9 +32,19 @@ public class AccountsActivity extends GenericMenuActivity {
         Log.i("AccountsActivity", "onPause() method");
     };
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mBoundedTTS) {
+            mBoundedTTS = false;
+            isInIt = false;
+        }
+    };
+
     ServiceConnection mConnectionTTS = new ServiceConnection() {
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            unbindService(mConnectionTTS);
             mBoundedTTS = false;
             mTTS = null;
         }
@@ -45,7 +54,7 @@ public class AccountsActivity extends GenericMenuActivity {
             mBoundedTTS = true;
             TextToSpeechService.LocalBinder mLocalBinder = (TextToSpeechService.LocalBinder)service;
             mTTS = mLocalBinder.getService();
-            mTTS.speakText("Accounts Screen");
+            mTTS.speakText("You are on Accounts Menu");
         }
     };
 }
