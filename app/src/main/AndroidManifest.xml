@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -17,23 +18,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.example.test1.bankservices.AccountsActivity"></activity>
-        <activity android:name="com.example.test1.bankservices.MyBeneficiariesActivity" />
-        <activity android:name="com.example.test1.bankservices.AddBeneficiaryActivity" />
-        <activity android:name="com.example.test1.bankservices.RequestProcessActivity" />
-        <activity android:name="com.example.test1.bankservices.TransferRequestsActivity" />
-        <activity android:name="com.example.test1.generics.GenericMenuActivity" />
-        <activity android:name="com.example.test1.bankservices.FundsTransferActivity" />
-        <activity android:name=".ChatBotActivity" android:label="Voice Assistant"></activity>
+        <activity android:name=".bankservices.TransactionSuccessfulActivity"></activity>
+        <activity android:name=".bankservices.AccountsActivity" />
+        <activity android:name=".bankservices.MyBeneficiariesActivity" />
+        <activity android:name=".bankservices.AddBeneficiaryActivity" />
+        <activity android:name=".bankservices.RequestProcessActivity" />
+        <activity android:name=".bankservices.TransferRequestsActivity" />
+        <activity android:name=".generics.GenericMenuActivity" />
+        <activity android:name=".bankservices.FundsTransferActivity" />
+        <activity
+            android:name=".ChatBotActivity"
+            android:label="Voice Assistant" />
         <activity android:name=".CreatePin" />
         <activity android:name=".Login" />
-        <activity android:name=".SignUp"/>
+        <activity android:name=".SignUp" />
         <activity android:name=".AddAccount" />
-        <activity android:name=".Home" android:label="Home Menu">
-        </activity>
-        <activity android:name=".FirstMenu">
-        </activity>
+        <activity
+            android:name=".Home"
+            android:label="Home Menu"></activity>
+        <activity android:name=".FirstMenu"></activity>
         <activity android:name=".SliderActivity" />
         <activity
             android:name=".FirstSplashActivity"
@@ -42,15 +45,15 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
-            android:name="com.example.test1.res.TextToSpeechService"
+            android:name=".res.TextToSpeechService"
             android:enabled="true"
             android:exported="true" />
     </application>
 
-
-    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

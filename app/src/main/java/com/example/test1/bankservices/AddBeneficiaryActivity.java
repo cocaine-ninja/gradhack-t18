@@ -2,12 +2,16 @@ package com.example.test1.bankservices;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,23 +25,36 @@ import java.util.Locale;
 public class AddBeneficiaryActivity extends AppCompatActivity {
 
     private static final int REQ_CODE_SPEECH_INPUT = 100;
+    Button buttonConfirm;
+
+    final Handler handler = new Handler();
+    public boolean isInIt = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bankservices_add_beneficiary);
+
+        // delay key up event listeners
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isInIt = true;
+            }
+        }, 2000);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        Button buttonConfirm = findViewById(R.id.buttonConfirmBeneficiary);
+        buttonConfirm = findViewById(R.id.buttonConfirmBeneficiary);
+        buttonConfirm.setBackgroundColor(Color.parseColor("#c7000f"));
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "PROCEEDING TO PAY", Toast.LENGTH_SHORT).show();
-                startVoiceInput();
+                Toast.makeText(getApplicationContext(), "Adding new Beneficiary", Toast.LENGTH_SHORT).show();
+//                startVoiceInput();
             }
         });
     }
@@ -72,6 +89,17 @@ public class AddBeneficiaryActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: add speech recognizer on volume key hold
-    // TODO: add confirm button press on both volume key press
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (isInIt) {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                buttonConfirm.callOnClick();
+                return true;
+            } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
+                startVoiceInput();
+                return true;
+            }
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 }

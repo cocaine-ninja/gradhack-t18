@@ -111,7 +111,7 @@ public class TransferRequestsActivity extends AppCompatActivity {
             mBoundedTTS = true;
             TextToSpeechService.LocalBinder mLocalBinder = (TextToSpeechService.LocalBinder)service;
             mTTS = mLocalBinder.getService();
-            Toast.makeText(getApplicationContext(), "TTS Bind successful", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "TTS Bind successful", Toast.LENGTH_SHORT).show();
 //            mTTS.speakText("Transfer Requests Screen");
         }
     };

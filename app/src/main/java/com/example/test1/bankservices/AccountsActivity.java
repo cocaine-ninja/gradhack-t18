@@ -6,7 +6,9 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.test1.AddAccount;
 import com.example.test1.R;
 import com.example.test1.generics.GenericMenuActivity;
 import com.example.test1.res.TextToSpeechService;
@@ -57,4 +59,15 @@ public class AccountsActivity extends GenericMenuActivity {
             mTTS.speakText("You are on Accounts Menu");
         }
     };
+
+    @Override
+    protected void selectItem() {
+        String item = listView.getItemAtPosition(selectedIndex).toString();
+        if (item.equals("Add Account")) {
+            Intent intent = new Intent(this, AddAccount.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, item + " feature coming soon", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

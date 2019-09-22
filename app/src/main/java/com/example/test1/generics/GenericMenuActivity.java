@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -148,6 +149,7 @@ public class GenericMenuActivity extends AppCompatActivity {
         }
         return true;
     }
+
     // navigation functions
     private void navigateUp() {
         if (selectedIndex == -1000) {
@@ -170,7 +172,7 @@ public class GenericMenuActivity extends AppCompatActivity {
         listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
-    private void selectItem() {
+    protected void selectItem() {
         String item = listView.getItemAtPosition(selectedIndex).toString();
         String className = packageName + "." + item.replace(" ", "") + "Activity";
 
@@ -180,7 +182,7 @@ public class GenericMenuActivity extends AppCompatActivity {
             startActivity(intent);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-//            Toast.makeText(this, item + " feature coming soon", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, item + " feature coming soon", Toast.LENGTH_SHORT).show();
             mTTS.speakText(item + " feature coming soon");
         }
     }

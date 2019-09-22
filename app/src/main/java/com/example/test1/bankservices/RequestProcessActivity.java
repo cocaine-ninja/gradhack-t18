@@ -3,9 +3,11 @@ package com.example.test1.bankservices;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test1.R;
+import com.example.test1.generics.FundsRequest;
 import com.example.test1.res.TextToSpeechService;
 
 public class RequestProcessActivity extends AppCompatActivity {
@@ -25,6 +28,9 @@ public class RequestProcessActivity extends AppCompatActivity {
     boolean mBoundedTTS = false;
     TextToSpeechService mTTS;
     public boolean isInIt = false;
+
+    Button[] buttonArray;
+    int selectedIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +61,14 @@ public class RequestProcessActivity extends AppCompatActivity {
         int amount = extras.getInt("AMOUNT");
         String purpose = extras.getString("PURPOSE");
 
+        /*
         if (isInIt) {
             mTTS.speakText("Do you want to pay rupees " + Integer.toString(amount) + " to " + personName + "?");
             Toast.makeText(this, "isInIt true", Toast.LENGTH_SHORT).show();
-        } else
+        } else {
             Toast.makeText(this, "isInIt false", Toast.LENGTH_SHORT).show();
-        
+        }
+         */
         TextView personNameTextView = findViewById(R.id.personNameTextView);
         TextView purposeTextView = findViewById(R.id.purposeTextView);
         TextView amountTextView = findViewById(R.id.amountTextView);
@@ -72,10 +80,20 @@ public class RequestProcessActivity extends AppCompatActivity {
         Button buttonAccept = findViewById(R.id.buttonAccept);
         Button buttonDecline = findViewById(R.id.buttonDecline);
 
+        buttonArray = new Button[] {buttonAccept, buttonDecline};
+        for (Button b: buttonArray) {
+            b.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+        selectedIndex = -1000;
+
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "PROCEEDING TO PAY", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "PROCEEDING TO PAY", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), TransactionSuccessfulActivity.class);
+                intent.putExtra("PAYEE_NAME", personName);
+                intent.putExtra("AMOUNT", Integer.toString(amount));
+                startActivity(intent);
             }
         });
 
@@ -83,6 +101,8 @@ public class RequestProcessActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "PAYMENT DECLINED", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), TransferRequestsActivity.class);
+                startActivity(intent);
             }
         });
         // tts.speak("Do you want to pay rupees " + amount + " to " + personName, TextToSpeech.QUEUE_FLUSH, null,null);
@@ -128,4 +148,27 @@ public class RequestProcessActivity extends AppCompatActivity {
             mTTS = mLocalBinderTTS.getService();
         }
     };
+
+    // Volumes Keys Event Listeners
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(isInIt) {
+            if ((event.getFlags() & KeyEvent.FLAG_CANCELED_LONG_PRESS) == 0) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                    if (selectedIndex == -1000) {
+                        selectedIndex = 0;
+                    } else {
+                        buttonArray[selectedIndex].setBackgroundColor(Color.parseColor("#ffffff"));
+                        selectedIndex = (selectedIndex + 1) % 2;
+                    }
+                    buttonArray[selectedIndex].setBackgroundColor(Color.parseColor("#c7000f"));
+                    return true;
+                } else if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
+                    buttonArray[selectedIndex].callOnClick();
+                    return true;
+                }
+            }
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 }
