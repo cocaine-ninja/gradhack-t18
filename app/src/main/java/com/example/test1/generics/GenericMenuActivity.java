@@ -9,11 +9,13 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.test1.R;
 import com.example.test1.res.TextToSpeechService;
 
 
@@ -95,7 +97,7 @@ public class GenericMenuActivity extends AppCompatActivity {
     };
 
     public void populateListView(int id) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItemsArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.custom_view_for_generic_menu, R.id.genericMenuItemTextView, menuItemsArray);
         listView = findViewById(id);
         listView.setAdapter(adapter);
 
@@ -151,21 +153,21 @@ public class GenericMenuActivity extends AppCompatActivity {
         if (selectedIndex == -1000) {
             selectedIndex = 0;
         } else {
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#c7000f"));
             selectedIndex = (selectedIndex - 1) % listViewLength;
         }
         if (selectedIndex < 0) selectedIndex += listViewLength;
-        listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+        listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     private void navigateDown() {
         if (selectedIndex == -1000) {
             selectedIndex = 0;
         } else {
-            listView.getChildAt(selectedIndex).setBackgroundColor(Color.TRANSPARENT);
+            listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#c7000f"));
             selectedIndex = (selectedIndex + 1) % listViewLength;
         }
-        listView.getChildAt(selectedIndex).setBackgroundColor(Color.CYAN);
+        listView.getChildAt(selectedIndex).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     private void selectItem() {

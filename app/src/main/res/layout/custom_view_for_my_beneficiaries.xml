@@ -6,40 +6,77 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/beneficiaryNameTextView"
+        android:id="@+id/constBeneficiaryNameTextView"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="302dp"
-        android:layout_marginEnd="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/beneficiaryAccountNumberTextView"
+        android:layout_height="25dp"
+        android:gravity="top|left"
+        android:paddingLeft="10dp"
+        android:text="Beneficiary Name"
+        app:layout_constraintBottom_toTopOf="@+id/beneficiaryNameTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/beneficiaryAccountNumberTextView"
+        android:id="@+id/beneficiaryNameTextView"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/beneficiaryBankNameTextView"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/constAccountNumberTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constBeneficiaryNameTextView" />
+
+    <TextView
+        android:id="@+id/constAccountNumberTextView"
+        android:layout_width="409dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:gravity="top|left"
+        android:paddingLeft="10dp"
+        android:text="Account Number"
+        app:layout_constraintBottom_toTopOf="@+id/beneficiaryAccountNumberTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beneficiaryNameTextView" />
 
     <TextView
-        android:id="@+id/beneficiaryBankNameTextView"
+        android:id="@+id/beneficiaryAccountNumberTextView"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/constBankNameTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constAccountNumberTextView" />
+
+    <TextView
+        android:id="@+id/constBankNameTextView"
+        android:layout_width="409dp"
+        android:layout_height="25dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="357dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="top|left"
+        android:paddingLeft="10dp"
+        android:text="Bank Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beneficiaryAccountNumberTextView" />
+
+    <TextView
+        android:id="@+id/beneficiaryBankNameTextView"
+        android:layout_width="409dp"
+        android:layout_height="50dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constBankNameTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
