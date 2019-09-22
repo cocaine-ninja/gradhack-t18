@@ -81,36 +81,6 @@ public class Home extends AppCompatActivity {
         selectedIndex = -1000;
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        new Timer().schedule(
-                new TimerTask(){
-                    @Override
-                    public void run(){
-                        mTTS.speakText("You are on home menu");
-                    }}, 200);
-    }
-
-    @Override
-    protected void onStop() { super.onStop(); };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if(mBoundedTTS) {
-            mTTS.ttsCreationSuccessful = false;
-            unbindService(mConnectionTTS);
-            mBoundedTTS = false;
-        }
-    };
-
     // bind tts service instance to mTTS
     ServiceConnection mConnectionTTS = new ServiceConnection() {
         @Override
@@ -198,5 +168,21 @@ public class Home extends AppCompatActivity {
             Home.this.startActivity(myIntent);
         }
         return response;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        new Timer().schedule(
+                new TimerTask(){
+                    @Override
+                    public void run(){
+                        mTTS.speakText("You are on home menu");
+                    }}, 200);
     }
 }

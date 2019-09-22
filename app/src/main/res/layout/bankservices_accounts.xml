@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c7000f"
     tools:context="com.example.test1.bankservices.AccountsActivity">
 
     <ListView
         android:id="@+id/accountsListView"
-        android:layout_width="410dp"
-        android:layout_height="731dp"
+        android:layout_width="336dp"
+        android:layout_height="241dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

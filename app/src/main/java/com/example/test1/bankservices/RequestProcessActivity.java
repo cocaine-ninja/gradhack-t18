@@ -16,12 +16,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test1.R;
+
 import com.example.test1.generics.FundsRequest;
 import com.example.test1.res.TextToSpeechService;
 
-public class RequestProcessActivity extends AppCompatActivity {
-    final Handler handler = new Handler();
 
+public class RequestProcessActivity extends AppCompatActivity {
     Intent intent;
     Bundle extras;
 
@@ -32,6 +32,7 @@ public class RequestProcessActivity extends AppCompatActivity {
     Button[] buttonArray;
     int selectedIndex;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,18 +40,6 @@ public class RequestProcessActivity extends AppCompatActivity {
 
         intent = getIntent();
         extras = intent.getExtras();
-
-        // bind TTS service
-         Intent mIntentTTS = new Intent(this, TextToSpeechService.class);
-         bindService(mIntentTTS, mConnectionTTS, BIND_AUTO_CREATE);
-
-        // delay key up event listeners
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                isInIt = true;
-            }
-        }, 1000);
     }
 
     @Override
@@ -61,14 +50,6 @@ public class RequestProcessActivity extends AppCompatActivity {
         int amount = extras.getInt("AMOUNT");
         String purpose = extras.getString("PURPOSE");
 
-        /*
-        if (isInIt) {
-            mTTS.speakText("Do you want to pay rupees " + Integer.toString(amount) + " to " + personName + "?");
-            Toast.makeText(this, "isInIt true", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "isInIt false", Toast.LENGTH_SHORT).show();
-        }
-         */
         TextView personNameTextView = findViewById(R.id.personNameTextView);
         TextView purposeTextView = findViewById(R.id.purposeTextView);
         TextView amountTextView = findViewById(R.id.amountTextView);
@@ -96,7 +77,6 @@ public class RequestProcessActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         buttonDecline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,13 +85,7 @@ public class RequestProcessActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // tts.speak("Do you want to pay rupees " + amount + " to " + personName, TextToSpeech.QUEUE_FLUSH, null,null);
-//        Toast.makeText(getApplicationContext(), Integer.toString(amount) + " " + personName, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
+        //        Toast.makeText(this, personName + " " + amount + " " + purpose, Toast.LENGTH_SHORT).show();
     }
 
     @Override
