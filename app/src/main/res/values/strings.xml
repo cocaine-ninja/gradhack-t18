@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ABC Online Banking</string>
+    <string name="app_name">Login</string>
     <string name="tap_to_select_finger_print">Tap to select finger print</string>
     <string name="aws_region">us-east-1</string>
     <string name="pin"></string>
